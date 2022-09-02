@@ -1,0 +1,52 @@
+---
+- name: Install required software
+  apt:
+    pkg: "{{ required_software }}"
+    update_cache: yes
+  become: yes
+  tags:
+    - install_software
+
+- name: Install Python Modules
+  pip:
+    name: "{{ required_python_modules }}"
+  become: yes
+  tags:
+    - install_python_modules
+
+# - name: Add Docker repo key
+#   apt_key:
+#     url: https://download.docker.com/linux/ubuntu/gpg
+#     state: present
+#   become: yes
+#   tags:
+#     - install_docker
+#     - add_docker_repo_key
+
+# - name: Add Docker repo
+#   apt_repository:
+#     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+#     state: present
+#     filename: docker
+#     update_cache: yes
+#   become: yes
+#   tags:
+#     - install_docker
+#     - add_docker_repo
+
+# - name: Install Docker
+#   apt:
+#     pkg: "{{ docker_packages }}"
+#   become: yes
+#   tags:
+#     - install_docker
+#     - install_docker_packages
+
+- name: Adding existing user "{{ ansible_user_id }}" to group docker
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+  become: yes
+  tags:
+    - add_users_to_docker_group

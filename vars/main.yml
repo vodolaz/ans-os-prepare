@@ -1,0 +1,17 @@
+required_software:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+  - python3-pip
+  - rsync
+  
+required_python_modules:
+  - docker
+  - docker-compose
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
